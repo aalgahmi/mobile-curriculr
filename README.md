@@ -1,1 +1,1 @@
-# mobile-curricula
+# mobile-curriculr
