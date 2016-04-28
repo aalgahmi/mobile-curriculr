@@ -1,6 +1,7 @@
 import {bootstrap} from 'angular2/platform/browser';
 import {Component} from 'angular2/core';
 import {Router, RouteConfig, ROUTER_DIRECTIVES, ROUTER_PROVIDERS} from 'angular2/router';
+import {UserService} from './services/user.service';
 import {HeaderComponent} from './components/header.component';
 import {FooterComponent} from './components/footer.component';
 import {FrontComponent} from './components/front.component';
@@ -18,7 +19,7 @@ import {HomeComponent} from './components/home.component';
       </div>
     </div>
     <footer class="container"></footer>`,
-  directives: [ROUTER_DIRECTIVES, HeaderComponent, FooterComponent, FrontComponent, HomeComponent]
+  directives: [ROUTER_DIRECTIVES, HeaderComponent, FooterComponent]
 })
 @RouteConfig([
   {path: '/', name: 'RootPath', redirectTo: ['FrontPath']},
@@ -27,4 +28,4 @@ import {HomeComponent} from './components/home.component';
 ])
 export class AppComponent{}
 
-bootstrap(AppComponent, [ROUTER_PROVIDERS])
+bootstrap(AppComponent, [ROUTER_PROVIDERS, UserService])
