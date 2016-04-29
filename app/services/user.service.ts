@@ -5,9 +5,7 @@ var GUEST: User ={ email: 'guest@curriculr.org', name: "Guest User", loggedIn: f
 
 @Injectable()
 export class UserService {
-  login(user: User) {
-    return new Promise<User>(resolve =>
-      setTimeout(()=>resolve(GUEST), 2000) // 2 seconds
-    );
+  login() {
+    return GUEST;
   }
 }

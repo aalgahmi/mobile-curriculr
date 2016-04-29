@@ -9,11 +9,11 @@ import {User} from '../models/user';
   directives: [ROUTER_DIRECTIVES]
 })
 export class LoginFormComponent{
+  currentUser: User;
   constructor(private _router: Router, private _userService: UserService) {}
 
   onSubmit() {
-    this._userService.login(new User());
-    alert('hello');
+    this.currentUser = this._userService.login();
     this._router.navigate(['HomePath', {}]);
   }
 }
