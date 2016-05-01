@@ -6,6 +6,14 @@ var GUEST: User ={ email: 'guest@curriculr.org', name: "Guest User", loggedIn: f
 @Injectable()
 export class UserService {
   login() {
-    return GUEST;
+    localStorage.setItem('cu', GUEST.email);
+  }
+
+  logout() {
+    localStorage.removeItem('cu');
+  }
+
+  getCurrentUser(){
+    return localStorage.getItem('cu');
   }
 }
