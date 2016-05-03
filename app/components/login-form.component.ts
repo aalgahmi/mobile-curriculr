@@ -1,17 +1,15 @@
-import {Component} from 'angular2/core';
-import {Router, ROUTER_DIRECTIVES} from 'angular2/router';
+import {Component, Output, EventEmitter} from 'angular2/core';
 import {UserService} from '../services/user.service';
 
 @Component({
   selector: 'login-form',
-  templateUrl: 'app/templates/login-form.component.html',
-  directives: [ROUTER_DIRECTIVES]
+  templateUrl: 'app/templates/login-form.component.html'
 })
 export class LoginFormComponent{
-  constructor(private _router: Router, private _userService: UserService) {}
+  @Output() loggedIn = new EventEmitter();
+  constructor(private _userService: UserService) {}
 
   onSubmit() {
-    this._userService.login();
-    this._router.navigate(['HomePath', {}]);
+    this.loggedIn.emit(this._userService.login());
   }
 }

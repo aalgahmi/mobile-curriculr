@@ -1,18 +1,24 @@
-import {Component} from 'angular2/core';
-import {Router, ROUTER_DIRECTIVES} from 'angular2/router';
+import {Component, Output, EventEmitter} from 'angular2/core';
 import {KlassService} from '../services/klass.service';
 import {Klass} from '../models/klass';
 
 @Component({
   selector: 'home',
-  templateUrl: 'app/templates/home.component.html',
-  directives: [ROUTER_DIRECTIVES]
+  template: `
+    <div *ngFor="#klass of klassService.getAvailableClasses()">
+      <img [src]='klass.poster' class="u-pull-left"/>
+      <strong>{{klass.title}}</strong><br>
+      <small>By: {{klass.instructor}}</small>
+      <p>{{klass.about}}</p>
+      <button class="button-primary" (click)='goToClass(klass)'>Go To Class</button>
+    </div>
+  `
 })
 export class HomeComponent{
-  availableClasses: Klass[];
-  constructor(private _router: Router, public klassService: KlassService) {}
+  @Output() classSelected = new EventEmitter();
+  constructor(private klassService: KlassService) {}
 
-  goToClass(id: number){
-    this._router.navigate(['KlassPath', {id: id}]);
+  goToClass(klass){
+    this.classSelected.emit(klass);
   }
 }

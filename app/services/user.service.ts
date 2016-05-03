@@ -7,6 +7,7 @@ var GUEST: User ={ email: 'guest@curriculr.org', name: "Guest User", loggedIn: f
 export class UserService {
   login() {
     localStorage.setItem('cu', GUEST.email);
+    return GUEST;
   }
 
   logout() {
