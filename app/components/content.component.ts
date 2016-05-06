@@ -1,7 +1,7 @@
 import {Component} from 'angular2/core';
 import {HeaderComponent} from './header.component';
-import {LoginFormComponent} from './login-form.component';
-import {HomeComponent} from './home.component';
+import {LoginComponent} from './login.component';
+import {KlassesComponent} from './klasses.component';
 import {KlassComponent} from './klass.component';
 import {UserService} from '../services/user.service';
 import {User} from '../models/user';
@@ -14,20 +14,32 @@ import {Klass} from '../models/Klass';
     <div class="content container">
       <div class="row">
         <div class="twelve columns">
-          <main>
-            <login-form *ngIf="!currentUser" (loggedIn)="whenLoggedIn($event)"></login-form>
-            <home *ngIf="currentUser && !currentClass" (classSelected)="whenClassSelected($event)"></home>
-            <klass *ngIf="currentUser && currentClass" [klass]="currentClass" (classUnselected)="whenClassUnselected()"></klass>
+          <main [ngSwitch]="getTargetPage()">
+            <login   *ngSwitchWhen="'login'" (loggedIn)="whenLoggedIn($event)"></login>
+            <klasses *ngSwitchWhen="'klasses'" (classSelected)="whenClassSelected($event)"></klasses>
+            <klass   *ngSwitchWhen="'klass'" [klass]="currentClass" (classUnselected)="whenClassUnselected()"></klass>
           </main>
         </div>
       </div>
     </div>
     `,
-  directives:[HeaderComponent, LoginFormComponent, HomeComponent, KlassComponent]
+  directives:[HeaderComponent, LoginComponent, KlassesComponent, KlassComponent]
 })
 export class ContentComponent{
   currentUser: User;
   currentClass: Klass;
+
+  getTargetPage(){
+    if(!this.currentUser){
+      return 'login';
+    } else {
+      if(!this.currentClass){
+        return 'klasses'
+      }else{
+        return 'klass'
+      }
+    }
+  }
 
   whenLoggedIn(user){
     this.currentUser = user;

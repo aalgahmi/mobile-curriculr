@@ -3,7 +3,7 @@ import {KlassService} from '../services/klass.service';
 import {Klass} from '../models/klass';
 
 @Component({
-  selector: 'home',
+  selector: 'klasses',
   template: `
     <div *ngFor="#klass of klassService.getAvailableClasses()">
       <img [src]='klass.poster' class="u-pull-left"/>
@@ -14,7 +14,7 @@ import {Klass} from '../models/klass';
     </div>
   `
 })
-export class HomeComponent{
+export class KlassesComponent{
   @Output() classSelected = new EventEmitter();
   constructor(private klassService: KlassService) {}
 

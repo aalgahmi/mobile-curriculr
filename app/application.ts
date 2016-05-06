@@ -4,7 +4,7 @@ import {UserService} from './services/user.service';
 import {KlassService} from './services/klass.service';
 import {FooterComponent} from './components/footer.component';
 import {ContentComponent} from './components/content.component';
-import {HomeComponent} from './components/home.component';
+import {KlassesComponent} from './components/klasses.component';
 import {KlassComponent} from './components/klass.component';
 
 @Component({

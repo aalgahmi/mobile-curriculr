@@ -2,10 +2,10 @@ import {Component, Output, EventEmitter} from 'angular2/core';
 import {UserService} from '../services/user.service';
 
 @Component({
-  selector: 'login-form',
-  templateUrl: 'app/templates/login-form.component.html'
+  selector: 'login',
+  templateUrl: 'app/templates/login.component.html'
 })
-export class LoginFormComponent{
+export class LoginComponent{
   @Output() loggedIn = new EventEmitter();
   constructor(private _userService: UserService) {}
 
