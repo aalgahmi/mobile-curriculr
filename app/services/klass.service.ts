@@ -1,4 +1,4 @@
-import {Injectable} from 'angular2/core';
+import {Injectable} from '@angular/core';
 import {Klass} from '../models/klass';
 
 var AVAILABLR_CLASSES: Klass[] = [{

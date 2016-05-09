@@ -1,4 +1,4 @@
-import {Injectable} from 'angular2/core';
+import {Injectable} from '@angular/core';
 import {User} from '../models/user';
 
 var GUEST: User ={ email: 'guest@curriculr.org', name: "Guest User", loggedIn: false};

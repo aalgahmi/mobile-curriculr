@@ -1,5 +1,5 @@
-import {bootstrap} from 'angular2/platform/browser';
-import {Component} from 'angular2/core';
+import {bootstrap} from '@angular/platform-browser-dynamic';
+import {Component} from '@angular/core';
 import {UserService} from './services/user.service';
 import {KlassService} from './services/klass.service';
 import {FooterComponent} from './components/footer.component';
@@ -14,7 +14,6 @@ import {KlassComponent} from './components/klass.component';
     <footer></footer>`,
   directives: [ContentComponent, FooterComponent]
 })
-
 export class AppComponent{}
 
 bootstrap(AppComponent, [UserService, KlassService])

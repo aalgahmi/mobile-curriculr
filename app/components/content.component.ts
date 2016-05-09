@@ -1,4 +1,4 @@
-import {Component} from 'angular2/core';
+import {Component} from '@angular/core';
 import {HeaderComponent} from './header.component';
 import {LoginComponent} from './login.component';
 import {KlassesComponent} from './klasses.component';

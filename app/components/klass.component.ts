@@ -1,4 +1,4 @@
-import {Component, Input, Output, EventEmitter} from 'angular2/core';
+import {Component, Input, Output, EventEmitter} from '@angular/core';
 import {KlassService} from '../services/klass.service';
 import {Klass} from '../models/klass';
 
