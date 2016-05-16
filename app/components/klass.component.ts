@@ -1,4 +1,5 @@
 import {Component, Input, Output, EventEmitter} from '@angular/core';
+import {Router, RouteSegment, ROUTER_DIRECTIVES} from '@angular/router';
 import {KlassService} from '../services/klass.service';
 import {Klass} from '../models/klass';
 
@@ -26,13 +27,16 @@ import {Klass} from '../models/klass';
       <iframe width="560" height="315" src="https://www.youtube.com/embed/{{klass.promo}}" frameborder="0"></iframe>
     </div>
     <p>{{klass.about}}</p>
-    <button class="button-primary" (click)="goBack()">Back to Classes</button>
-  `
+    <a class="button button-primary" [routerLink]="['/klasses']">Back to Classes</a>
+  `,
+  directives: [ROUTER_DIRECTIVES]
 })
 export class KlassComponent{
-  @Input() klass: Klass;
-  @Output() classUnselected = new EventEmitter();
-  goBack(){
-    this.classUnselected.emit('classUnselected');
+  klass: Klass;
+
+  constructor(private _klassService: KlassService, private _router: Router){}
+
+  routerOnActivate(request: RouteSegment){
+    this.klass = this._klassService.getAvailableKlasses().filter((k) => `${k.id}` == request.getParam('id'))[0];
   }
 }

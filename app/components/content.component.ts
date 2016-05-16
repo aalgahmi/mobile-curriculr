@@ -1,59 +1,31 @@
 import {Component} from '@angular/core';
+import {Router, ROUTER_DIRECTIVES} from '@angular/router';
 import {HeaderComponent} from './header.component';
-import {LoginComponent} from './login.component';
-import {KlassesComponent} from './klasses.component';
-import {KlassComponent} from './klass.component';
 import {UserService} from '../services/user.service';
 import {User} from '../models/user';
-import {Klass} from '../models/Klass';
 
 @Component({
   selector: 'content',
   template: `
-    <header [currentUser]='currentUser' (loggedOut)="whenLoggedOut()"></header>
+    <header></header>
     <div class="content container">
       <div class="row">
         <div class="twelve columns">
-          <main [ngSwitch]="getTargetPage()">
-            <login   *ngSwitchWhen="'login'" (loggedIn)="whenLoggedIn($event)"></login>
-            <klasses *ngSwitchWhen="'klasses'" (classSelected)="whenClassSelected($event)"></klasses>
-            <klass   *ngSwitchWhen="'klass'" [klass]="currentClass" (classUnselected)="whenClassUnselected()"></klass>
-          </main>
+          <router-outlet></router-outlet>
         </div>
       </div>
     </div>
     `,
-  directives:[HeaderComponent, LoginComponent, KlassesComponent, KlassComponent]
+  directives:[HeaderComponent, ROUTER_DIRECTIVES]
 })
 export class ContentComponent{
-  currentUser: User;
-  currentClass: Klass;
+  constructor(private _userService: UserService, private _router: Router){}
 
-  getTargetPage(){
-    if(!this.currentUser){
-      return 'login';
+  ngOnInit() {
+    if(!this._userService.getCurrentUser()){
+      this._router.navigate(['login']);
     } else {
-      if(!this.currentClass){
-        return 'klasses'
-      }else{
-        return 'klass'
-      }
+      this._router.navigate(['/klasses']);
     }
-  }
-
-  whenLoggedIn(user){
-    this.currentUser = user;
-  }
-
-  whenLoggedOut(){
-    this.currentUser = undefined;
-  }
-
-  whenClassSelected(klass){
-    this.currentClass = klass;
-  }
-
-  whenClassUnselected(){
-    this.currentClass = undefined;
   }
 }

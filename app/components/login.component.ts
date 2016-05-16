@@ -1,4 +1,5 @@
-import {Component, Output, EventEmitter} from '@angular/core';
+import {Component} from '@angular/core';
+import {Router} from '@angular/router';
 import {UserService} from '../services/user.service';
 
 @Component({
@@ -6,10 +7,10 @@ import {UserService} from '../services/user.service';
   templateUrl: 'app/templates/login.component.html'
 })
 export class LoginComponent{
-  @Output() loggedIn = new EventEmitter();
-  constructor(private _userService: UserService) {}
+  constructor(private _userService: UserService, private _router: Router) {}
 
   onSubmit() {
-    this.loggedIn.emit(this._userService.login());
+    this._userService.login();
+    this._router.navigate(['/klasses']);
   }
 }

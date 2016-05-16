@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {Klass} from '../models/klass';
 
-var AVAILABLR_CLASSES: Klass[] = [{
+var AVAILABLR_KLASSES: Klass[] = [{
     id: 101,
     title: 'CS 101',
     about: `Nullam rhoncus dui felis, et feugiat lorem vehicula sed.
@@ -48,7 +48,7 @@ var AVAILABLR_CLASSES: Klass[] = [{
 
 @Injectable()
 export class KlassService {
-  getAvailableClasses() {
-    return AVAILABLR_CLASSES;
+  getAvailableKlasses() {
+    return AVAILABLR_KLASSES;
   }
 }
