@@ -2,6 +2,8 @@ import {Component} from '@angular/core';
 import {Router, ROUTER_DIRECTIVES} from '@angular/router';
 import {UserService} from '../services/user.service';
 import {KlassService} from '../services/klass.service';
+import {McNewClassDirective} from '../directives/mc-new-class.directive';
+import {McFlagTextDirective} from '../directives/mc-flag-text.directive';
 import {Klass} from '../models/klass';
 
 @Component({
@@ -34,7 +36,10 @@ import {Klass} from '../models/klass';
   `],
   template: `
     <div *ngFor="let klass of _klassService.getAvailableKlasses()" class="item">
-      <img [src]='klass.poster' class="poster u-pull-left"/>
+      <div class="image" style="position: relative;">
+        <div *mcNewClass="klass.new" class="corner-ribbon">New</div>
+        <img [src]='klass.poster' class="poster u-pull-left"/>
+      </div>
       <div class="description">
         <strong>{{klass.title}}</strong><br>
         <small>By: {{klass.instructor}}</small>
@@ -43,7 +48,7 @@ import {Klass} from '../models/klass';
       </div>
     </div>
   `,
-  directives: [ROUTER_DIRECTIVES]
+  directives: [ROUTER_DIRECTIVES, McNewClassDirective, McFlagTextDirective]
 })
 export class KlassesComponent{
   constructor(private _userService: UserService, private _klassService: KlassService, private _router: Router) {}

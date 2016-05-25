@@ -5,4 +5,5 @@ export class Klass{
   promo: string;
   poster: string;
   instructor: string;
+  new: boolean;
 }

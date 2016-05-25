@@ -74,3 +74,16 @@ footer {
   border-top: 1px solid #eee;
   /*border-bottom: 1px solid #eee;*/
 }
+
+/* The ribbons */
+.corner-ribbon {
+  width: 80px;
+  background: #2c7;
+  position: absolute;
+  top: 10px;
+  left: -5px;
+  text-align: center;
+  line-height:20px;
+  letter-spacing: 1px;
+  color: #fff;
+}
