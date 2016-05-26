@@ -2,8 +2,8 @@ import {Component} from '@angular/core';
 import {Router, ROUTER_DIRECTIVES} from '@angular/router';
 import {UserService} from '../services/user.service';
 import {KlassService} from '../services/klass.service';
-import {McNewClassDirective} from '../directives/mc-new-class.directive';
-import {McFlagTextDirective} from '../directives/mc-flag-text.directive';
+import {McIfWithBadgeDirective} from '../directives/mc-if-with-badge.directive';
+import {McBadgedtDirective} from '../directives/mc-badged.directive';
 import {Klass} from '../models/klass';
 
 @Component({
@@ -37,7 +37,7 @@ import {Klass} from '../models/klass';
   template: `
     <div *ngFor="let klass of _klassService.getAvailableKlasses()" class="item">
       <div class="image" style="position: relative;">
-        <div *mcNewClass="klass.new" class="corner-ribbon">New</div>
+        <div *mcIfWithBadge="klass.badge" mcBadged>{{klass.badge}}</div>
         <img [src]='klass.poster' class="poster u-pull-left"/>
       </div>
       <div class="description">
@@ -48,7 +48,7 @@ import {Klass} from '../models/klass';
       </div>
     </div>
   `,
-  directives: [ROUTER_DIRECTIVES, McNewClassDirective, McFlagTextDirective]
+  directives: [ROUTER_DIRECTIVES, McIfWithBadgeDirective, McBadgedtDirective]
 })
 export class KlassesComponent{
   constructor(private _userService: UserService, private _klassService: KlassService, private _router: Router) {}

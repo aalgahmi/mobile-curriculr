@@ -1,12 +1,12 @@
 import { Directive, Input, TemplateRef, ViewContainerRef } from '@angular/core';
 
-@Directive({ selector: '[mcNewClass]' })
-export class McNewClassDirective {
+@Directive({ selector: '[mcIfWithBadge]' })
+export class McIfWithBadgeDirective {
   constructor(
     private templateRef: TemplateRef<any>,
     private viewContainer: ViewContainerRef
     ) { }
-  @Input() set mcNewClass(condition: boolean) {
+  @Input() set mcIfWithBadge(condition: boolean) {
     if (condition) {
       this.viewContainer.createEmbeddedView(this.templateRef);
     } else {

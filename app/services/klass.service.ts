@@ -12,7 +12,7 @@ var AVAILABLR_KLASSES: Klass[] = [{
     promo: 'XQu8TTBmGhA',
     poster: 'http://placehold.it/120x68',
     instructor: 'Jon Smith',
-    new: true
+    badge: 'New'
   }, {
     id: 102,
     title: 'Math 191',
@@ -24,7 +24,7 @@ var AVAILABLR_KLASSES: Klass[] = [{
     promo: 'XQu8TTBmGhA',
     poster: 'http://placehold.it/120x68',
     instructor: 'Jane Doe',
-
+    badge: ''
   }, {
     id: 103,
     title: 'Introductory Statistics',
@@ -36,7 +36,7 @@ var AVAILABLR_KLASSES: Klass[] = [{
     promo: 'XQu8TTBmGhA',
     poster: 'http://placehold.it/120x68',
     instructor: 'Sarah Woods',
-    new: true
+    badge: 'New'
   }, {
     id: 104,
     title: 'Machine Learning',
@@ -45,7 +45,8 @@ var AVAILABLR_KLASSES: Klass[] = [{
             ante convallis, eu mattis sapien finibus.`,
     promo: 'XQu8TTBmGhA',
     poster: 'http://placehold.it/120x68',
-    instructor: 'Matt Dowery'
+    instructor: 'Matt Dowery',
+    badge: ''
   }
 ];
 
