@@ -1,9 +1,12 @@
 import {bootstrap} from '@angular/platform-browser-dynamic';
 import {Component, provide} from '@angular/core';
+import {HTTP_PROVIDERS, XHRBackend} from '@angular/http';
+import { InMemoryBackendService, SEED_DATA } from 'angular2-in-memory-web-api';
 import {LocationStrategy, HashLocationStrategy} from '@angular/common';
 import {Routes, Router, ROUTER_PROVIDERS, ROUTER_DIRECTIVES} from '@angular/router';
 import {UserService} from './services/user.service';
 import {KlassService} from './services/klass.service';
+import {KlassDb} from './services/klass-db';
 import {FooterComponent} from './components/footer.component';
 import {ContentComponent} from './components/content.component';
 import {LoginComponent} from './components/login.component';
@@ -31,4 +34,9 @@ export class AppComponent{
 }
 
 //bootstrap(AppComponent, [ROUTER_PROVIDERS])
-bootstrap(AppComponent, [ROUTER_PROVIDERS, provide(LocationStrategy, {useClass: HashLocationStrategy})]);
+bootstrap(AppComponent, [
+  ROUTER_PROVIDERS,
+  HTTP_PROVIDERS,
+  provide(LocationStrategy, {useClass: HashLocationStrategy}),
+  provide(XHRBackend, { useClass: InMemoryBackendService }),
+  provide(SEED_DATA,  { useClass: KlassDb })]);

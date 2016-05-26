@@ -35,7 +35,7 @@ import {Klass} from '../models/klass';
     }
   `],
   template: `
-    <div *ngFor="let klass of _klassService.getAvailableKlasses()" class="item">
+    <div *ngFor="let klass of _klassService.getKlasses()" class="item">
       <div class="image" style="position: relative;">
         <div *mcIfWithBadge="klass.badge" mcBadged>{{klass.badge}}</div>
         <img [src]='klass.poster' class="poster u-pull-left"/>

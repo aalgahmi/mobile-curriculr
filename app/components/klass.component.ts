@@ -37,6 +37,6 @@ export class KlassComponent{
   constructor(private _klassService: KlassService, private _router: Router){}
 
   routerOnActivate(request: RouteSegment){
-    this.klass = this._klassService.getAvailableKlasses().filter((k) => `${k.id}` == request.getParam('id'))[0];
+    this.klass = this._klassService.getKlasses().filter((k) => `${k.id}` == request.getParam('id'))[0];
   }
 }

@@ -1,58 +1,52 @@
 import {Injectable} from '@angular/core';
+import {Http, Response} from '@angular/http';
+import { Headers, RequestOptions } from '@angular/http';
 import {Klass} from '../models/klass';
-
-var AVAILABLR_KLASSES: Klass[] = [{
-    id: 101,
-    title: 'CS 101',
-    about: `Nullam rhoncus dui felis, et feugiat lorem vehicula sed.
-            Fusce feugiat urna ut velit convallis, sit amet dapibus
-            metus luctus. Ut justo ante, consequat vitae turpis ac,
-            scelerisque interdum diam. Aenean ac lacus luctus,
-            posuere eros vitae, vulputate turpis`,
-    promo: 'XQu8TTBmGhA',
-    poster: 'http://placehold.it/120x68',
-    instructor: 'Jon Smith',
-    badge: 'New'
-  }, {
-    id: 102,
-    title: 'Math 191',
-    about: `Donec hendrerit consectetur nisl, nec aliquam erat cursus
-            eget. Cras vel augue pulvinar dui euismod sodales. Sed ac
-            hendrerit eros. Vestibulum accumsan semper nunc,
-            vel feugiat sapien tempor ac. Donec ornare
-            mattis ex et commodo.`,
-    promo: 'XQu8TTBmGhA',
-    poster: 'http://placehold.it/120x68',
-    instructor: 'Jane Doe',
-    badge: ''
-  }, {
-    id: 103,
-    title: 'Introductory Statistics',
-    about: `Nullam viverra mattis nulla, vel feugiat lacus. Morbi vel
-            lacus non nisi efficitur pretium. Aliquam ut orci non eros
-            commodo gravida sit amet id mi. Curabitur nunc nibh, rhoncus
-            a ligula ac, hendrerit convallis nibh. Interdum
-            et malesuada fames ac ante.`,
-    promo: 'XQu8TTBmGhA',
-    poster: 'http://placehold.it/120x68',
-    instructor: 'Sarah Woods',
-    badge: 'New'
-  }, {
-    id: 104,
-    title: 'Machine Learning',
-    about: `Duis ultrices imperdiet odio, sed finibus ante iaculis ac.
-            Vestibulum vel mattis sapien. Curabitur faucibus turpis eu
-            ante convallis, eu mattis sapien finibus.`,
-    promo: 'XQu8TTBmGhA',
-    poster: 'http://placehold.it/120x68',
-    instructor: 'Matt Dowery',
-    badge: ''
-  }
-];
+import {Observable} from 'rxjs/Observable';
+import 'rxjs/add/operator/catch';
+import 'rxjs/add/operator/map';
 
 @Injectable()
 export class KlassService {
-  getAvailableKlasses() {
-    return AVAILABLR_KLASSES;
+  availableKlasses: Klass[];
+  errorMsg: string;
+  constructor (private _http: Http) {}
+
+  private klassesUrl = 'app/klasses';  // URL to web API
+
+  private extractData(res: Response) {
+    let body = res.json();
+    return body.data || { };
+  }
+
+  private handleError (error: any) {
+    let errMsg = (error.message) ? error.message :
+      error.status ? `${error.status} - ${error.statusText}` : 'Server error';
+    console.error(errMsg); // log to console instead
+    return Observable.throw(errMsg);
+  }
+
+  getKlasses (): Klass[] {
+    if (!this.availableKlasses) {
+      this._http.get(this.klassesUrl)
+      .map(this.extractData)
+      .catch(this.handleError)
+      .subscribe(
+        klasses => this.availableKlasses = klasses,
+         error =>  this.errorMsg = <any>error
+      );
+    }
+
+    return this.availableKlasses;
+  }
+
+  removeBadge(badge: string): Observable<Klass> {
+    let body = JSON.stringify({ badge });
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+
+    return this._http.post(this.klassesUrl, body, options)
+      .map(this.extractData)
+      .catch(this.handleError);
   }
 }
