@@ -22,11 +22,11 @@ import {Klass} from '../models/klass';
       height: 100%;
     }`],
   template: `
-    <h5>{{klass.title}}</h5>
+    <h5>{{klass?.title}}</h5>
     <div class="video-container">
-      <iframe width="560" height="315" src="https://www.youtube.com/embed/{{klass.promo}}" frameborder="0"></iframe>
+      <iframe width="560" height="315" src="https://www.youtube.com/embed/{{klass?.promo}}" frameborder="0"></iframe>
     </div>
-    <p>{{klass.about}}</p>
+    <p>{{klass?.about}}</p>
     <a class="button button-primary" [routerLink]="['/klasses']">Back to Classes</a>
   `,
   directives: [ROUTER_DIRECTIVES]
@@ -37,6 +37,12 @@ export class KlassComponent{
   constructor(private _klassService: KlassService, private _router: Router){}
 
   routerOnActivate(request: RouteSegment){
-    this.klass = this._klassService.getKlasses().filter((k) => `${k.id}` == request.getParam('id'))[0];
+    this._klassService.getKlasses().subscribe(
+      klasses => {
+        this.klass = klasses.filter((k) => `${k.id}` == request.getParam('id'))[0]; 
+        if (this.klass){
+          this._klassService.removeBadge(this.klass).subscribe();
+        }
+      });
   }
 }

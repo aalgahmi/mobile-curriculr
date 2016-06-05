@@ -35,7 +35,7 @@ import {Klass} from '../models/klass';
     }
   `],
   template: `
-    <div *ngFor="let klass of _klassService.getKlasses()" class="item">
+    <div *ngFor="let klass of klasses" class="item">
       <div class="image" style="position: relative;">
         <div *mcIfWithBadge="klass.badge" mcBadged>{{klass.badge}}</div>
         <img [src]='klass.poster' class="poster u-pull-left"/>
@@ -52,12 +52,17 @@ import {Klass} from '../models/klass';
 })
 export class KlassesComponent{
   constructor(private _userService: UserService, private _klassService: KlassService, private _router: Router) {}
-
+  klasses: Klass[];
   ngOnInit() {
     if(!this._userService.getCurrentUser()){
       this._router.navigate(['login']);
     } else {
       this._router.navigate(['/klasses']);
     }
+
+    this._klassService.getKlasses().subscribe(
+      klasses => this.klasses = klasses,
+      error => console.log(error)
+    )
   }
 }
