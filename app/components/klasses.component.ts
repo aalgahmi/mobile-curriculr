@@ -57,12 +57,12 @@ export class KlassesComponent{
     if(!this._userService.getCurrentUser()){
       this._router.navigate(['login']);
     } else {
+      this._klassService.getAvailableKlasses().subscribe(
+        klasses => this.klasses = klasses,
+        error => console.log(error)
+      )
+
       this._router.navigate(['/klasses']);
     }
-
-    this._klassService.getKlasses().subscribe(
-      klasses => this.klasses = klasses,
-      error => console.log(error)
-    )
   }
 }

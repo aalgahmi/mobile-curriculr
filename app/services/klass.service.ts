@@ -24,18 +24,19 @@ export class KlassService {
     return Observable.throw(errMsg);
   }
 
-  getKlasses (): Observable<Klass[]> {
+  getAvailableKlasses (): Observable<Klass[]> {
     return this._http.get(this.klassesUrl)
       .map(this.extractData)
       .catch(this.handleError);
   }
 
   removeBadge(klass: Klass): Observable<Klass> {
-    let body = JSON.stringify({ id: klass.id, badge: '' });
+    klass.badge = '';
+    let body = JSON.stringify(klass);
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
 
-    return this._http.put(this.klassesUrl, body, options)
+    return this._http.put(this.klassesUrl + '/' + klass.id, body, options)
       .map(this.extractData)
       .catch(this.handleError);
   }

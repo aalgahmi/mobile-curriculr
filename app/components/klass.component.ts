@@ -37,9 +37,9 @@ export class KlassComponent{
   constructor(private _klassService: KlassService, private _router: Router){}
 
   routerOnActivate(request: RouteSegment){
-    this._klassService.getKlasses().subscribe(
+    this._klassService.getAvailableKlasses().subscribe(
       klasses => {
-        this.klass = klasses.filter((k) => `${k.id}` == request.getParam('id'))[0]; 
+        this.klass = klasses.filter((k) => `${k.id}` == request.getParam('id'))[0];
         if (this.klass){
           this._klassService.removeBadge(this.klass).subscribe();
         }
